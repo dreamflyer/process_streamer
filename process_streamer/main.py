@@ -41,7 +41,7 @@ class Streamer:
             self.lines = ""
 
     def listen(self):
-        while running:
+        while self.running:
             current_time = time.time()
 
             if current_time > self.expired:
