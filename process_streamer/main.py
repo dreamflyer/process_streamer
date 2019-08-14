@@ -87,13 +87,13 @@ def start(script_path, project_path, url, timeout):
     execute(command_line, Streamer(url, int(timeout)))
 
 def main(*args):
-    script_path = args[0]
+    script_path = args[0][1]
 
-    project_path = args[1]
+    project_path = args[0][2]
 
-    url = args[2]
+    url = args[0][3]
 
-    timeout = args[3]
+    timeout = args[0][4]
 
     start(script_path, project_path, url, timeout)
 
