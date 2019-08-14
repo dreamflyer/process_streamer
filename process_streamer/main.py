@@ -20,13 +20,13 @@ class Streamer:
 
         self.lines = ""
 
-        self.thread = threading.Thread(target=self.listen)
-
-        self.thread.start()
-
         self.expired = time.time() + timeout
 
         self.running = True
+
+        self.thread = threading.Thread(target=self.listen)
+
+        self.thread.start()
 
     def write_line(self, line):
         self.lines += line
@@ -36,7 +36,7 @@ class Streamer:
 
     def send(self):
         print("POST request: " + self.url)
-        
+
         if len(self.lines):
             requests.post(self.url, data=self.lines)
 
@@ -51,6 +51,8 @@ class Streamer:
 
                 self.expired = current_time + self.timeout
 
+            time.sleep(1)
+
         self.send()
 
 async def read_stream(stream, streamer):
@@ -58,7 +60,7 @@ async def read_stream(stream, streamer):
         line = await stream.readline()
 
         if line:
-            streamer.write_line(line)
+            streamer.write_line(line.decode("utf-8"))
 
         else:
             streamer.stop()
@@ -96,6 +98,8 @@ def main(*args):
     url = args[0][3]
 
     timeout = args[0][4]
+
+    print(url)
 
     start(script_path, project_path, url, timeout)
 
