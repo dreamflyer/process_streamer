@@ -35,6 +35,8 @@ class Streamer:
         self.running = False
 
     def send(self):
+        print("POST request: " + self.url)
+        
         if len(self.lines):
             requests.post(self.url, data=self.lines)
 
