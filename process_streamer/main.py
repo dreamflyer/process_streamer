@@ -79,23 +79,23 @@ def execute(command_line, streamer):
 
     return rc
 
-def start(script_path, project_path, host_name, timeout):
-    command_line = "python " + script_path + " --project " + project_path + " --name test"
+def start(script_path, project_path, url, timeout):
+    command_line = "python " + script_path + " --project " + project_path + " --name experiment --allow_resume True"
 
     os.popen("chmod a+x " + script_path)
 
-    execute(command_line, Streamer(host_name, int(timeout)))
+    execute(command_line, Streamer(url, int(timeout)))
 
 def main(*args):
     script_path = args[0]
 
     project_path = args[1]
 
-    host_name = args[2]
+    url = args[2]
 
     timeout = args[3]
 
-    start(script_path, project_path, host_name, timeout)
+    start(script_path, project_path, url, timeout)
 
 if __name__ == '__main__':
     main(sys.argv)
