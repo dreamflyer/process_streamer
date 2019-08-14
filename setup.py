@@ -1,7 +1,7 @@
 from setuptools import setup
 import setuptools
 
-setup(name='train_runner',
+setup(name='process_streamer',
       version='0.1',
       description='process streamer',
       url='https://github.com/dreamflyer/process_streamer',
