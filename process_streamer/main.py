@@ -39,7 +39,7 @@ class Streamer:
             print(self.lines)
 
             requests.post(self.url, data=self.lines.encode('utf-8'))
-            
+
             self.lines = ""
 
     def listen(self):
@@ -83,8 +83,11 @@ def execute(command_line, streamer):
 
     return rc
 
-def start(script_path, project_path, url, timeout):
+def start(script_path, project_path, url, timeout, fold):
     command_line = "python " + script_path + " --project " + project_path + " --name experiment --allow_resume True"
+
+    if not (fold == "folds_argument"):
+        command_line += " --folds " + fold
 
     os.popen("chmod a+x " + script_path)
 
@@ -99,9 +102,11 @@ def main(*args):
 
     timeout = args[0][4]
 
+    fold = args[0][5]
+
     print(url)
 
-    start(script_path, project_path, url, timeout)
+    start(script_path, project_path, url, timeout, fold)
 
 if __name__ == '__main__':
     main(sys.argv)
