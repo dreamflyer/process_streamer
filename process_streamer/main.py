@@ -83,11 +83,14 @@ def execute(command_line, streamer):
 
     return rc
 
-def start(script_path, project_path, url, timeout, fold):
+def start(script_path, project_path, url, timeout, fold, timer):
     command_line = "python " + script_path + " --project " + project_path + " --name experiment --allow_resume True"
 
     if not (fold == "folds_argument"):
         command_line += " --folds " + fold
+
+    if not (timer == "timer_argument"):
+        command_line += " --time " + timer
 
     os.popen("chmod a+x " + script_path)
 
@@ -104,9 +107,11 @@ def main(*args):
 
     fold = args[0][5]
 
+    timer = args[0][6]
+
     print(url)
 
-    start(script_path, project_path, url, timeout, fold)
+    start(script_path, project_path, url, timeout, fold, timer)
 
 if __name__ == '__main__':
     main(sys.argv)
